@@ -11,25 +11,63 @@ import java.io.IOException;
 public class TemperatureConverterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var writer = resp.getWriter();
+
+        req.getRequestDispatcher("/WEB-INF/convert.jsp")
+                .forward(req,resp);
+
+
+       /* var writer = resp.getWriter();
+        var temperature = req.getParameter("temperature");
+
+        if (temperature != null && temperature.length() > 0) {
+            double temperatureInC = Double.parseDouble(temperature);
+            double temperatureInF = (temperatureInC * 9 / 5) + 32;
+
+            writer.println("" +
+                    "<html>" +
+                        "<head>" +
+                            "<title>Temperature Converter</title>" +
+                        "</head>" +
+                        "<body> " +
+                            "<p> Temperature in Fahrenheit is: " +
+                                "   "+ temperatureInF + "</p>" +
+                        "</body>" +
+                    "</html>"
+            );
+
+            return;
+        }
         writer.println("" +
                 "<html>" +
                 "<head>" +
-                    "<title>Temperature Converter</title>" +
+                "<title>Temperature Converter</title>" +
                 "</head>" +
                 "<body> " +
-                    "<h1> Celsius to Fahrenheit Conversion</h2>" +
+                "<h1> Celsius to Fahrenheit Conversion</h2>" +
 
-                    "<form action= \"/convert\" method = \"/get\" />"+
-                        "<input type = \"number\" name = \"temperature\" />"+
-                        "<input type = \"submit\" value = \"Submit\" />"+
-                    "</form>"+
+                "<form action= \"/convert\" method = \"/get\" />" +
+                "<input type = \"number\" name = \"temperature\" />" +
+                "<input type = \"submit\" value = \"Submit\" />" +
+                "</form>" +
 
-                "</body>"+
+                "</body>" +
                 "</html>"
 
+        );*/
+    }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        );
+        var temperature = req.getParameter("temperature");
+
+        if (temperature != null && temperature.length() > 0){
+            double temperatureInC = Double.parseDouble(temperature);
+            double temperatureInF = (temperatureInC * 9 / 5) + 32;
+
+            req.setAttribute("result", temperatureInF);
+        }
+
+        req.getRequestDispatcher("/WEB-INF/result.jsp").forward(req,resp);
     }
 }
