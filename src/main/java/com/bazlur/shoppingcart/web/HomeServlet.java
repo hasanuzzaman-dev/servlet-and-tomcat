@@ -14,7 +14,7 @@ public class HomeServlet extends HttpServlet {
         resp.getWriter().println(
                 "<html>" +
                         "<body>" +
-                            "<h1> Hello, world! </h1>" +
+                            "<h1> Hello, World! </h1>" +
                         "</body>" +
                 "</html>"
         );
